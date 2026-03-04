@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gnars NFT Donation Plan</title>
+<meta name="description" content="Distributing 130 Gnars to 23 active governance participants on Base.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --text-xs:   clamp(0.7rem,  0.65rem + 0.25vw, 0.8rem);
+  --text-sm:   clamp(0.8rem,  0.75rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.875rem, 0.825rem + 0.3vw, 1rem);
+  --text-lg:   clamp(1.05rem,  0.95rem + 0.5vw, 1.3rem);
+  --text-xl:   clamp(1.3rem,   1rem + 1vw, 1.8rem);
+  --text-2xl:  clamp(1.8rem,   1.2rem + 2vw, 2.8rem);
+
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+  --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem;
+  --space-12: 3rem; --space-16: 4rem;
+
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm: 6px; --radius-md: 8px;
+
+  --bg: #0a0a0a;
+  --bg-card: #141414;
+  --bg-card-hover: #1a1a1a;
+  --bg-elevated: #1e1e1e;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.14);
+  --text-primary: #f0f0f0;
+  --text-secondary: #999;
+  --text-muted: #666;
+  
+  --gold: #fbbf24;
+  --gold-dim: rgba(251,191,36,0.12);
+  --gold-border: rgba(251,191,36,0.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+}
+
+.page-header {
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header h1 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: var(--space-3);
+}
+
+.page-header h1 span {
+  color: var(--gold);
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.stats-row {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 120px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.stat-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: var(--space-1);
+}
+
+.section {
+  margin-bottom: var(--space-12);
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.section-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.section-count {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.members-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.member-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.member-card:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+}
+
+.gami-card {
+  border-color: var(--gold-border);
+  background: rgba(251,191,36,0.03);
+}
+
+.gami-card:hover {
+  border-color: rgba(251,191,36,0.35);
+}
+
+.member-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.member-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.member-name {
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.member-name:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.donation-count {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--gold);
+  background: var(--gold-dim);
+  padding: 1px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.donation-count.donor {
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.06);
+}
+
+.member-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.member-display {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.vp-badge {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.member-stats {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+}
+
+.member-after {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  font-style: italic;
+}
+
+.member-footer {
+  margin-top: var(--space-2);
+}
+
+.member-addr {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.airdrop-section {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+.airdrop-section h2 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.airdrop-desc {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.airdrop-box {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.airdrop-text {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  padding: var(--space-4);
+  white-space: pre;
+  overflow-x: auto;
+  line-height: 1.7;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.copy-btn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  z-index: 2;
+}
+
+.copy-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.copy-btn.copied {
+  color: var(--gold);
+  border-color: var(--gold-border);
+}
+
+@media (max-width: 480px) {
+  .stats-row { gap: var(--space-2); }
+  .stat-card { min-width: 100px; }
+  .member-header { flex-direction: column; gap: var(--space-2); }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="page-header">
+    <h1>Gnars <span>Donation Plan</span></h1>
+    <p class="page-subtitle">130 Gnars distributed to 23 governance participants on Base. Weighted by onchain engagement, recency, and existing voting power.</p>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value">130</div>
+      <div class="stat-label">Gnars to distribute</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">23</div>
+      <div class="stat-label">Recipients</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">129</div>
+      <div class="stat-label">Gami retains</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Donor</h2>
+    </div>
+    <div class="members-grid">
+      
+    <div class="member-card gami-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x387a161c6b25aa854100abaed39274e51aaffffd" target="_blank" rel="noopener" class="member-name">Gami</a>
+          <span class="donation-count donor">-130</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">gami.eth</span>
+          <span class="vp-badge">259 VP</span>
+          <span class="vp-badge">259 held</span>
+        </div>
+      </div>
+      <div class="member-stats">59 votes &middot; 2 proposals &middot; 31 reasons</div>
+        <div class="member-after">After: 129 held &middot; 129 VP</div>
+      <div class="member-footer">
+        <code class="member-addr">0x387a...fffd</code>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Recipients</h2>
+      <span class="section-count">130 Gnars</span>
+    </div>
+    <div class="members-grid">
+      
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x8bf5941d27176242745b716251943ae4892a3c26" target="_blank" rel="noopener" class="member-name">Vlad (skatehacker)</a>
+          <span class="donation-count">+34</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">skatehacker</span>
+          <span class="vp-badge">117 VP</span>
+          <span class="vp-badge">101 held</span>
+        </div>
+      </div>
+      <div class="member-stats">93 votes &middot; 10 proposals &middot; 80 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x41cb...be4a</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x39a7b6fa1597bb6657fe84e64e3b836c37d6f75d" target="_blank" rel="noopener" class="member-name">r4topunk</a>
+          <span class="donation-count">+16</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">r4topunk.eth</span>
+          <span class="vp-badge">24 VP</span>
+          <span class="vp-badge">24 held</span>
+        </div>
+      </div>
+      <div class="member-stats">67 votes &middot; 3 proposals &middot; 29 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x39a7...f75d</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xddb4938755c243a4f60a2f2f8f95df4f894c58cc" target="_blank" rel="noopener" class="member-name">willdias</a>
+          <span class="donation-count">+8</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">willdias.eth</span>
+          <span class="vp-badge">10 VP</span>
+          <span class="vp-badge">41 held</span>
+        </div>
+      </div>
+      <div class="member-stats">63 votes &middot; 4 proposals &middot; 49 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xddb4...58cc</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x2feb329b9289b60064904fa61fc347157a5aed6a" target="_blank" rel="noopener" class="member-name">zimardrp</a>
+          <span class="donation-count">+8</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">zimardrp.eth</span>
+          <span class="vp-badge">0 VP</span>
+          <span class="vp-badge">53 held</span>
+        </div>
+      </div>
+      <div class="member-stats">70 votes &middot; 5 proposals &middot; 40 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x2feb...ed6a</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xdcf37d8aa17142f053aaa7dc56025ab00d897a19" target="_blank" rel="noopener" class="member-name">Satori</a>
+          <span class="donation-count">+7</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">satori.wtf</span>
+          <span class="vp-badge">111 VP</span>
+          <span class="vp-badge">15 held</span>
+        </div>
+      </div>
+      <div class="member-stats">62 votes &middot; 2 proposals &middot; 59 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xdcf3...7a19</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xd1195629d9ba1168591b8ecdec9abb1721fcc7d8" target="_blank" rel="noopener" class="member-name">nogenta</a>
+          <span class="donation-count">+6</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">nogenta.eth</span>
+          <span class="vp-badge">3 VP</span>
+          <span class="vp-badge">3 held</span>
+        </div>
+      </div>
+      <div class="member-stats">52 votes &middot; 5 proposals &middot; 7 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xd119...c7d8</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xdfb6ed808fadddad9154f5605e349fff96e3d939" target="_blank" rel="noopener" class="member-name">Davin Oyesigye</a>
+          <span class="donation-count">+6</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">davinoyesigye.eth</span>
+          <span class="vp-badge">33 VP</span>
+          <span class="vp-badge">33 held</span>
+        </div>
+      </div>
+      <div class="member-stats">54 votes &middot; 3 proposals &middot; 50 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xdfb6...d939</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x356d8dac5f0da039dcc3e22c8b42fde00e79f7e6" target="_blank" rel="noopener" class="member-name">blessskateshop</a>
+          <span class="donation-count">+5</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">blessskateshop</span>
+          <span class="vp-badge">2 VP</span>
+          <span class="vp-badge">2 held</span>
+        </div>
+      </div>
+      <div class="member-stats">47 votes &middot; 1 proposals &middot; 19 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x356d...f7e6</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x33bbf6e27ce7b254e537bcb9f3b00cd1451563ea" target="_blank" rel="noopener" class="member-name">fuzzyface</a>
+          <span class="donation-count">+4</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">fuzzyface.eth</span>
+          <span class="vp-badge">11 VP</span>
+          <span class="vp-badge">11 held</span>
+        </div>
+      </div>
+      <div class="member-stats">29 votes &middot; 6 proposals &middot; 18 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x33bb...63ea</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x4b5f934da25c33f130efc5df47c91af1375baa30" target="_blank" rel="noopener" class="member-name">marinioac</a>
+          <span class="donation-count">+4</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">marinioac.eth</span>
+          <span class="vp-badge">0 VP</span>
+          <span class="vp-badge">0 held</span>
+        </div>
+      </div>
+      <div class="member-stats">26 votes &middot; 3 proposals &middot; 13 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x4b5f...aa30</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xdb1cb916373416fc900a8533ce02aff3faa62cdf" target="_blank" rel="noopener" class="member-name">webgnar</a>
+          <span class="donation-count">+4</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">webgnar.eth</span>
+          <span class="vp-badge">12 VP</span>
+          <span class="vp-badge">12 held</span>
+        </div>
+      </div>
+      <div class="member-stats">36 votes &middot; 6 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xdb1c...2cdf</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x1273261b09dc30d0b6ce460d7cab5820fa42e38c" target="_blank" rel="noopener" class="member-name">vasconsa</a>
+          <span class="donation-count">+3</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">vasconsa.eth</span>
+          <span class="vp-badge">1 VP</span>
+          <span class="vp-badge">1 held</span>
+        </div>
+      </div>
+      <div class="member-stats">31 votes &middot; 1 proposals &middot; 19 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x1273...e38c</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x2d9cbc4ecfbd1b8f66aa798fd51585ae058daa8b" target="_blank" rel="noopener" class="member-name">MetaMu</a>
+          <span class="donation-count">+3</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">metamu.eth</span>
+          <span class="vp-badge">2 VP</span>
+          <span class="vp-badge">2 held</span>
+        </div>
+      </div>
+      <div class="member-stats">44 votes &middot; 42 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x2d9c...aa8b</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x8d2a253a5885806aa14e583c80c8833a904fb252" target="_blank" rel="noopener" class="member-name">ephraimsylar</a>
+          <span class="donation-count">+3</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">ephraimsylar</span>
+          <span class="vp-badge">3 VP</span>
+          <span class="vp-badge">3 held</span>
+        </div>
+      </div>
+      <div class="member-stats">24 votes &middot; 2 proposals &middot; 24 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x8d2a...b252</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xaaed9fff9858d48925904e391b77892ba5fda824" target="_blank" rel="noopener" class="member-name">fcarva</a>
+          <span class="donation-count">+3</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">fcarva.eth</span>
+          <span class="vp-badge">54 VP</span>
+          <span class="vp-badge">1 held</span>
+        </div>
+      </div>
+      <div class="member-stats">22 votes &middot; 1 proposals &middot; 10 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xaaed...a824</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x057cfcd04198e6d17f1bf502135d9508b6fa2fde" target="_blank" rel="noopener" class="member-name">pamtech</a>
+          <span class="donation-count">+3</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">pamtech.eth</span>
+          <span class="vp-badge">48 VP</span>
+          <span class="vp-badge">7 held</span>
+        </div>
+      </div>
+      <div class="member-stats">28 votes &middot; 1 proposals &middot; 23 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x057c...2fde</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x05a1ff0a32bc24265bcb39499d0c5d9a6cb2011c" target="_blank" rel="noopener" class="member-name">willywonka</a>
+          <span class="donation-count">+3</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">willywonka.eth</span>
+          <span class="vp-badge">13 VP</span>
+          <span class="vp-badge">13 held</span>
+        </div>
+      </div>
+      <div class="member-stats">30 votes &middot; 20 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x05a1...011c</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xb2b7d66bb56ce8ff7838dc8053ff35050ed95e9d" target="_blank" rel="noopener" class="member-name">rickyday</a>
+          <span class="donation-count">+2</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">rickyday.eth</span>
+          <span class="vp-badge">153 VP</span>
+          <span class="vp-badge">34 held</span>
+        </div>
+      </div>
+      <div class="member-stats">63 votes &middot; 2 proposals &middot; 36 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xb2b7...5e9d</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xfc27b375faf1fbd3f3462044cf810082f042a45b" target="_blank" rel="noopener" class="member-name">luizhadad</a>
+          <span class="donation-count">+2</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">luizhadad.eth</span>
+          <span class="vp-badge">29 VP</span>
+          <span class="vp-badge">29 held</span>
+        </div>
+      </div>
+      <div class="member-stats">37 votes &middot; 2 proposals &middot; 31 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xfc27...a45b</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xddd7c01cecdbd0ac633ef7405a60165f731e645f" target="_blank" rel="noopener" class="member-name">isaachuston</a>
+          <span class="donation-count">+2</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">isaachuston</span>
+          <span class="vp-badge">1 VP</span>
+          <span class="vp-badge">1 held</span>
+        </div>
+      </div>
+      <div class="member-stats">15 votes &middot; 6 proposals &middot; 15 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xddd7...645f</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xd81cf1903fc4d385ba7f289fd7380906933585c6" target="_blank" rel="noopener" class="member-name">rosecityweb3</a>
+          <span class="donation-count">+2</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">rosecityweb3.eth</span>
+          <span class="vp-badge">0 VP</span>
+          <span class="vp-badge">0 held</span>
+        </div>
+      </div>
+      <div class="member-stats">24 votes &middot; 23 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xd81c...85c6</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0x56b6dcddd5d96535c35b720c96e19939920544d8" target="_blank" rel="noopener" class="member-name">gondy</a>
+          <span class="donation-count">+1</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">gondy.eth</span>
+          <span class="vp-badge">231 VP</span>
+          <span class="vp-badge">231 held</span>
+        </div>
+      </div>
+      <div class="member-stats">45 votes &middot; 1 proposals &middot; 35 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0x56b6...44d8</code>
+      </div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-header">
+        <div class="member-name-row">
+          <a href="https://www.gnars.com/members/0xedc1a397589a0236c4810883b7d559288a5fe7e1" target="_blank" rel="noopener" class="member-name">fattybuthappy</a>
+          <span class="donation-count">+1</span>
+        </div>
+        <div class="member-meta">
+          <span class="member-display">fattybuthappy.eth</span>
+          <span class="vp-badge">109 VP</span>
+          <span class="vp-badge">109 held</span>
+        </div>
+      </div>
+      <div class="member-stats">14 votes &middot; 2 proposals &middot; 9 reasons</div>
+      <div class="member-footer">
+        <code class="member-addr">0xedc1...e7e1</code>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="airdrop-section">
+    <h2>Airdrop Data</h2>
+    <p class="airdrop-desc">Format: address,amount</p>
+    <div class="airdrop-box">
+      <button class="copy-btn" onclick="copyAirdrop(this)">Copy All</button>
+      <div class="airdrop-text" id="airdrop-data">0x8bf5941d27176242745b716251943ae4892a3c26,34
+0x39a7b6fa1597bb6657fe84e64e3b836c37d6f75d,16
+0xddb4938755c243a4f60a2f2f8f95df4f894c58cc,8
+0x2feb329b9289b60064904fa61fc347157a5aed6a,8
+0xdcf37d8aa17142f053aaa7dc56025ab00d897a19,7
+0xd1195629d9ba1168591b8ecdec9abb1721fcc7d8,6
+0xdfb6ed808fadddad9154f5605e349fff96e3d939,6
+0x356d8dac5f0da039dcc3e22c8b42fde00e79f7e6,5
+0x33bbf6e27ce7b254e537bcb9f3b00cd1451563ea,4
+0x4b5f934da25c33f130efc5df47c91af1375baa30,4
+0xdb1cb916373416fc900a8533ce02aff3faa62cdf,4
+0x1273261b09dc30d0b6ce460d7cab5820fa42e38c,3
+0x2d9cbc4ecfbd1b8f66aa798fd51585ae058daa8b,3
+0x8d2a253a5885806aa14e583c80c8833a904fb252,3
+0xaaed9fff9858d48925904e391b77892ba5fda824,3
+0x057cfcd04198e6d17f1bf502135d9508b6fa2fde,3
+0x05a1ff0a32bc24265bcb39499d0c5d9a6cb2011c,3
+0xb2b7d66bb56ce8ff7838dc8053ff35050ed95e9d,2
+0xfc27b375faf1fbd3f3462044cf810082f042a45b,2
+0xddd7c01cecdbd0ac633ef7405a60165f731e645f,2
+0xd81cf1903fc4d385ba7f289fd7380906933585c6,2
+0x56b6dcddd5d96535c35b720c96e19939920544d8,1
+0xedc1a397589a0236c4810883b7d559288a5fe7e1,1</div>
+    </div>
+  </section>
+</div>
+
+<script>
+function copyAirdrop(btn) {
+  const text = document.getElementById('airdrop-data').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy All';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
